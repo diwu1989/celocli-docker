@@ -20,8 +20,7 @@ ENV NPM_CONFIG_PREFIX=/home/celo/.npm-global
 WORKDIR /home/celo/
 
 # Install @celo/celocli from NPM.
-RUN npm i -g @celo/celocli && \
-    rm -rf ~/.npm ~/.cache && \
-    celocli config:set --node wss://forno.celo.org/ws
+RUN npm i -g @celo/celocli && rm -rf .npm
+RUN celocli config:set --node wss://forno.celo.org/ws
 
 CMD /bin/bash
