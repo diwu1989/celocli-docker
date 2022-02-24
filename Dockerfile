@@ -6,7 +6,7 @@
 FROM node:12-alpine
 
 # Install cli install dependencies.
-RUN apk add --no-cache python git make gcc g++ bash libusb-dev linux-headers eudev-dev
+RUN apk add --no-cache python3 git make gcc g++ bash libusb-dev linux-headers eudev-dev
 
 # Add an set as default a non-privileged user named celo.
 RUN adduser -D -S celo
@@ -20,4 +20,8 @@ ENV NPM_CONFIG_PREFIX=/home/celo/.npm-global
 WORKDIR /home/celo/
 
 # Install @celo/celocli from NPM.
-RUN npm i -g @celo/celocli && rm -rf ~/.npm
+RUN npm i -g @celo/celocli && \
+    rm -rf ~/.npm ~/.cache && \
+    celocli config:set --node wss://forno.celo.org/ws
+
+CMD /bin/bash
