@@ -16,11 +16,12 @@ USER celo
 RUN mkdir /home/celo/.npm-global
 ENV PATH=/home/celo/.npm-global/bin:$PATH
 ENV NPM_CONFIG_PREFIX=/home/celo/.npm-global
+ENV RPC_URL=https://rpc.ankr.com/celo
 
 WORKDIR /home/celo/
 
 # Install @celo/celocli from NPM.
 RUN npm i -g @celo/celocli && rm -rf .npm
-RUN celocli config:set --node wss://forno.celo.org/ws
+RUN celocli config:set --node $RPC_URL
 
 CMD /bin/bash
